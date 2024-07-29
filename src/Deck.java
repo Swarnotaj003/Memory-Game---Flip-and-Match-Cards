@@ -1,0 +1,67 @@
+import java.util.Random;
+
+public class Deck 
+{
+    protected int numOfCards;
+    private int numOfSymbols;
+    protected Card[][] matrix;
+
+    public Deck (int numOfSymbols) {
+        this.numOfSymbols = numOfSymbols;
+        this.numOfCards = 4 * numOfSymbols * numOfSymbols;
+        matrix = new Card[2*numOfSymbols][2*numOfSymbols];
+
+        for (int i = 0; i < 2*numOfSymbols; i++) {
+            for (int j = 0; j < 2*numOfSymbols; j++) {
+                matrix[i][j] = new Card((char)('A' + (i*2*numOfSymbols + j)/4));
+            }
+        }
+    }
+
+    public boolean isEmpty() {
+        return this.numOfCards == 0;
+    }
+
+    public boolean isCardAvailable (int row, int col) {
+        return matrix[row][col] != null;
+    }
+
+    public Card drawCard (int row, int col) {
+        numOfCards--;
+        Card card = matrix[row][col];
+        card.flip();
+        matrix[row][col] = null;
+        return card;
+    }
+
+    public void addCard (Card card, int row, int col) {
+        numOfCards++;
+        card.flip();
+        matrix[row][col] = card;
+    }
+
+    public void shuffle() {
+        Random random = new Random();
+        int row, col;
+        for (int i = 0; i < 2*numOfSymbols; i++) {
+            for (int j = 0; j < 2*numOfSymbols; j++) {
+                row = random.nextInt(2*numOfSymbols);
+                col = random.nextInt(2*numOfSymbols);
+
+                Card tempCard = matrix[i][j];
+                matrix[i][j] = matrix[row][col];
+                matrix[row][col] = tempCard;
+            }
+        }
+    }
+
+    public void showDeck() {
+        for (int i = 0; i < 2*numOfSymbols; i++) {
+            for (int j = 0; j < 2*numOfSymbols; j++) {
+                char symbol = isCardAvailable(i, j) ? (matrix[i][j].isFaceUp() ? matrix[i][j].showCardFace() : '_') : '-';
+                System.out.print(symbol + " ");
+            }
+            System.out.println();
+        }
+    }
+}
