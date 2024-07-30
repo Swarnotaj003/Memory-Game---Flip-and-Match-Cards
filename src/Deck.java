@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Deck 
 {
@@ -63,5 +64,13 @@ public class Deck
             }
             System.out.println();
         }
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        // Clear the console
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }
