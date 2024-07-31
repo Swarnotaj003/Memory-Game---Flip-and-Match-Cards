@@ -59,7 +59,7 @@ public class Deck
     public void showDeck() {
         for (int i = 0; i < 2*numOfSymbols; i++) {
             for (int j = 0; j < 2*numOfSymbols; j++) {
-                char symbol = isCardAvailable(i, j) ? (matrix[i][j].isFaceUp() ? matrix[i][j].showCardFace() : '_') : '-';
+                char symbol = isCardAvailable(i, j) ? (matrix[i][j].isFaceUp() ? matrix[i][j].showCardFace() : '#') : '_';
                 System.out.print(symbol + " ");
             }
             System.out.println();

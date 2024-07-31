@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Game 
 {
@@ -31,23 +30,17 @@ public class Game
 
     public void showResults() {
         int maxScore = -1;
-        ArrayList<Player> winners = new ArrayList<>();
+        Player winner = null;
         System.out.println("\nRESULTS");
+
         for (Player player : players) {
             System.out.printf("%20s : %3d\n", player.getName(), player.getScore());
-            if (player.getScore() >= maxScore) {
+            if (player.getScore() > maxScore) {
                 maxScore = player.getScore();
-                winners.add(player);
+                winner = player;
             }
         }
-        if (winners.size() == 1)
-            System.out.println("## The WINNER is " + winners.get(0).getName() + " ##");
-        else {
-            System.out.print("## The WINNERS are ");
-            for (Player winner : winners)
-                System.out.print(winner.getName() + " ");
-            System.out.println("##");
-        }
+        System.out.println("## The WINNER is " + winner.getName() + " ##");
         sc.close();
     }
 
@@ -71,7 +64,7 @@ public class Game
                     picked = true;
                 }
                 else {
-                    System.out.println("## No card available at that position");
+                    System.out.println("## No card available at that position ##");
                 }
             }
 
@@ -85,7 +78,7 @@ public class Game
                     picked = true;
                 }
                 else {
-                    System.out.println("## No card available at that position");
+                    System.out.println("## No card available at that position ##");
                 }
             }
 
@@ -101,7 +94,7 @@ public class Game
                 players[turn].updateScore();
             }   
             else {
-                System.out.println("## It's NOT a MATCH! The cards are kept back");
+                System.out.println("## It's NOT a MATCH! The cards are kept back ##");
                 deck.matrix[row1][col1].flip();
                 deck.matrix[row2][col2].flip();
             }
