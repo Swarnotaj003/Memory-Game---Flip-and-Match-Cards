@@ -10,7 +10,6 @@ A simple memory match game built with Java where you try to find matching pairs 
 * [Author](#author)
 
 ## Getting Started
-------------------
 
 To run the game, simply clone this repository and open it in your preferred Java IDE. Make sure you have the necessary Java libraries installed.
 
@@ -21,20 +20,20 @@ To run the game, simply clone this repository and open it in your preferred Java
 
 ### Installing
 
-java
+```java
 // Clone the repository
 git clone https://github.com/Swarnotaj003/Memory-Match-Game.git
 
-// Open the project in your Java IDE
+// Open the project in your Java IDE```
 
 ## Gameplay
 
-- Run the game by executing the MemoryMatchGame class.
-- Click on a card to flip it over.
-- Try to find a matching pair of cards.
-- If you find a match, the cards will stay flipped over.
-- If you don't find a match, the cards will flip back over.
-- Keep playing until you've found all the matches.
+- Run the game by executing the `MemoryMatchGame` class
+- Click on a card to flip it over
+- Try to find a matching pair of cards
+- If you find a match, the cards will stay flipped over
+- If you don't find a match, the cards will flip back over
+- Keep playing until you've found all the matches
 
 ## Features
 
@@ -44,4 +43,4 @@ git clone https://github.com/Swarnotaj003/Memory-Match-Game.git
 
 ## Author
 
-['Swarnotaj003'](https://github.com/Swarnotaj003)
+[Swarnotaj003](https://github.com/Swarnotaj003)
