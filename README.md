@@ -1,6 +1,6 @@
 # Memory Match Game
 
-A simple memory match game built with `Java` where you try to find matching pairs of cards among `$$4 \* n^2$$` cards.
+A simple memory match game built with `Java` where you try to find matching pairs of cards among $$4 \* n^2$$ cards.
 
 ## Table of Contents
 
