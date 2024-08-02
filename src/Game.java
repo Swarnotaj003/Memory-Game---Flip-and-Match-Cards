@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Game 
 {
     private int numOfPlayers;
-    @SuppressWarnings("unused")
     private int gameLevel;
     private Deck deck;
     private Player[] players;
@@ -21,18 +20,26 @@ public class Game
     }
 
     public void setPlayers() {
-        System.out.println("Enter the player details");
+        System.out.println("## Enter the player details ##");
         for (int i = 0; i < numOfPlayers; i++) {
             System.out.print("Name of player " + (i+1) + ": ");
             players[i] = new Player(sc.nextLine());
         }
+        System.out.println();
+    }
+
+    public boolean validateInput(int row, int col) {
+        return (row >= 0 && row <= 2*gameLevel+1 && col >= 0 && col <= 2*gameLevel+1);
     }
 
     public void showResults() {
         int maxScore = -1;
         Player winner = null;
+        System.out.println("******************************************");
         System.out.println("\nRESULTS");
+        System.out.println("******************************************");
 
+        System.out.printf("%20s : %3d\n", "PLAYER", "SCORE");
         for (Player player : players) {
             System.out.printf("%20s : %3d\n", player.getName(), player.getScore());
             if (player.getScore() > maxScore) {
@@ -40,13 +47,16 @@ public class Game
                 winner = player;
             }
         }
+        System.out.println("------------------------------------------");
         System.out.println("## The WINNER is " + winner.getName() + " ##");
+        System.out.println("------------------------------------------");
         sc.close();
     }
 
     public void play() {
         int turn = 0;
         int row1 = 0, col1 = 0, row2 = 0, col2 = 0;
+        System.out.println("Shuffling your deck...");
         deck.shuffle();
         deck.showDeck();
 
@@ -59,7 +69,7 @@ public class Game
                 System.out.print("Choose your first card : ");
                 row1 = sc.nextInt();
                 col1 = sc.nextInt();
-                if (deck.isCardAvailable(row1, col1)) {
+                if (validateInput(row1, col1) && deck.isCardAvailable(row1, col1)) {
                     deck.matrix[row1][col1].flip();
                     picked = true;
                 }
@@ -73,7 +83,7 @@ public class Game
                 System.out.print("Choose your second card : ");
                 row2 = sc.nextInt();
                 col2 = sc.nextInt();
-                if (deck.isCardAvailable(row2, col2)) {
+                if (validateInput(row2, col2) && deck.isCardAvailable(row2, col2)) {
                     deck.matrix[row2][col2].flip();
                     picked = true;
                 }
