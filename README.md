@@ -7,10 +7,10 @@ A simple memory match game built with Java where you try to find matching pairs 
 * [Getting Started](#getting-started)
 * [Gameplay](#gameplay)
 * [Features](#features)
-* [Authors](#authors)
+* [Author](#author)
 
 ## Getting Started
----------------
+------------------
 
 To run the game, simply clone this repository and open it in your preferred Java IDE. Make sure you have the necessary Java libraries installed.
 
@@ -21,7 +21,7 @@ To run the game, simply clone this repository and open it in your preferred Java
 
 ### Installing
 
-```java
+java
 // Clone the repository
 git clone https://github.com/Swarnotaj003/Memory-Match-Game.git
 
@@ -37,10 +37,11 @@ git clone https://github.com/Swarnotaj003/Memory-Match-Game.git
 - Keep playing until you've found all the matches.
 
 ## Features
+
 - Runs on Command Line Interface (CLI)
 - Use of Random class to shuffle the deck of cards
 - Use of flush() method to clear the console, ensuring limited duration for showing the cards faced up
 
 ## Author
 
-['Swarnotaj003]('https://github.com/Swarnotaj003')
+['Swarnotaj003'](https://github.com/Swarnotaj003)
