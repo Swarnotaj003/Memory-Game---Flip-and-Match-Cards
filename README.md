@@ -17,6 +17,7 @@ To run the game, simply clone this repository and open it in your preferred Java
 
 * `Java Development Kit (JDK)`: You need to have JDK 8 or later installed on your system to compile and run the game.
 * `Java IDE`: You need a Java Integrated Development Environment (IDE) such as Eclipse, NetBeans, or IntelliJ IDEA to open and run the project.
+* `VSCode` : For running on VSCode, you need to have the `Java Extension Pack` installed in VSCode to support Java development.
 * `Git`: You need to have Git installed on your system to clone the repository.
 
 ### Installing
