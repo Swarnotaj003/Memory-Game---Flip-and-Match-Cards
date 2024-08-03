@@ -36,7 +36,7 @@ public class Game
         int maxScore = -1;
         Player winner = null;
         System.out.println("******************************************");
-        System.out.println("\nRESULTS");
+        System.out.println("RESULTS");
         System.out.println("******************************************");
 
         System.out.printf("%20s : %5s\n", "PLAYER", "SCORE");
@@ -114,5 +114,6 @@ public class Game
         }   
         System.out.println();
         System.out.println("## Game Over! All cards are withdrawn ##");
+        System.out.println();
     }
 }
