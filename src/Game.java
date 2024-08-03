@@ -39,7 +39,7 @@ public class Game
         System.out.println("\nRESULTS");
         System.out.println("******************************************");
 
-        System.out.printf("%20s : %3d\n", "PLAYER", "SCORE");
+        System.out.printf("%20s : %5s\n", "PLAYER", "SCORE");
         for (Player player : players) {
             System.out.printf("%20s : %3d\n", player.getName(), player.getScore());
             if (player.getScore() > maxScore) {
