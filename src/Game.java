@@ -99,12 +99,14 @@ public class Game
 
             if (deck.matrix[row1][col1].hasMatched(deck.matrix[row2][col2])) {
                 System.out.println("## It's a MATCH! " + players[turn].getName() + " keeps two more cards ##");
+                System.out.println();
                 deck.drawCard(row1, col1);
                 deck.drawCard(row2, col2);
                 players[turn].updateScore();
             }   
             else {
                 System.out.println("## It's NOT a MATCH! The cards are kept back ##");
+                System.out.println();
                 deck.matrix[row1][col1].flip();
                 deck.matrix[row2][col2].flip();
             }
