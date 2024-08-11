@@ -1,0 +1,9 @@
+# Ignore compiled code
+*.class
+
+# Ignore IDE settings
+.vscode
+
+# Ignore sensitive information
+.project
+.classpath
