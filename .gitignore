@@ -1,5 +1,5 @@
 # Ignore compiled code
-*.class
+bin
 
 # Ignore IDE settings
 .vscode
@@ -7,3 +7,4 @@
 # Ignore sensitive information
 .project
 .classpath
+.gitignore
