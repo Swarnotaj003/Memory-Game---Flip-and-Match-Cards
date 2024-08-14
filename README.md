@@ -1,6 +1,6 @@
 # Memory Match Game
 
-A simple memory match game built with `Java` where you try to find matching pairs of cards among `4*n**2` cards.
+A simple memory match game built with `Java`, following `MVC` architecture, where you try to find matching pairs of cards among `4*n**2` cards.
 
 ## Table of Contents
 
@@ -42,7 +42,8 @@ git clone https://github.com/Swarnotaj003/Memory-Match-Game.git
 
 ## Features
 
-- Built with `Java` using the concept of `OOPs`
+- Built with `Java` following the `Model-View-Control(MVC)` architecture
+- Use of `OOP` concepts for modelling the software
 - Runs on `Command Line Interface (CLI)`
 - Use of `Random` class to shuffle the deck of cards
 - Use of `flush()` method to clear the console, ensuring limited duration for showing the cards faced up
