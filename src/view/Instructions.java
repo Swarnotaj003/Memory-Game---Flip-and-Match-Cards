@@ -1,6 +1,11 @@
+package view;
+
+import java.util.Scanner;
+
 public class Instructions
 {
     {
+        Scanner sc = new Scanner(System.in);
         System.out.println("************************************************************************");
         System.out.printf("%45s","MEMORY MATCH GAME\n");
         System.out.println("************************************************************************");
@@ -26,5 +31,11 @@ public class Instructions
         System.out.println("\tCan be played among 2 to 4 players");
         System.out.println("------------------------------------------------------------------------");
         System.out.println();
+
+        System.out.print("Press ENTER to continue...");
+        sc.nextLine();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        sc.close();
     }
 }

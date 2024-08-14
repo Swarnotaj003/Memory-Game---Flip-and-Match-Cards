@@ -1,3 +1,5 @@
+package model;
+
 public class Player 
 {
     private String playerName;
@@ -21,7 +23,7 @@ public class Player
         return this.score;
     }
 
-    public void updateScore () {
+    public void updateScore() {
         score++;
     }
 }

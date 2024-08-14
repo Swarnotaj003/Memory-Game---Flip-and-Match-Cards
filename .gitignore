@@ -1,8 +1,8 @@
 # Ignore compiled code
-bin
+/bin
 
 # Ignore IDE settings
-.vscode
+/.vscode
 
 # Ignore sensitive information
 .project

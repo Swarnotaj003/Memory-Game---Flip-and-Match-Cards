@@ -1,11 +1,13 @@
+package model;
+
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class Deck 
 {
-    protected int numOfCards;
+    private int numOfCards;
     private int numOfSymbols;
-    protected Card[][] matrix;
+    private Card[][] matrix;
 
     public Deck (int numOfSymbols) {
         this.numOfSymbols = numOfSymbols;
@@ -19,6 +21,18 @@ public class Deck
         }
     }
 
+    public int getNumberOfCards() {
+        return this.numOfCards;
+    }
+
+    public int getMatrixDimension() {
+        return 2 * this.numOfSymbols;
+    }
+
+    public Card getCard (int row, int col) {
+        return this.matrix[row][col];
+    }
+
     public boolean isEmpty() {
         return this.numOfCards == 0;
     }
@@ -27,7 +41,7 @@ public class Deck
         return matrix[row][col] != null;
     }
 
-    public Card drawCard (int row, int col) {
+    public Card withdrawCard (int row, int col) {
         numOfCards--;
         Card card = matrix[row][col];
         card.flip();
