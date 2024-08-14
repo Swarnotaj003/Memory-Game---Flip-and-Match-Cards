@@ -1,9 +1,4 @@
-# Ignore compiled code
-bin/
-
-# Ignore IDE settings
-.vscode/
-
-# Ignore sensitive information
+*.class
+*.json
 .project
 .classpath
