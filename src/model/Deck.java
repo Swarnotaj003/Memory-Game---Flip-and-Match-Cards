@@ -1,7 +1,6 @@
 package model;
 
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class Deck 
 {
@@ -68,23 +67,5 @@ public class Deck
                 matrix[row][col] = tempCard;
             }
         }
-    }
-
-    public void showDeck() {
-        for (int i = 0; i < 2*numOfSymbols; i++) {
-            for (int j = 0; j < 2*numOfSymbols; j++) {
-                char symbol = isCardAvailable(i, j) ? (matrix[i][j].isFaceUp() ? matrix[i][j].showCardFace() : '#') : '_';
-                System.out.print(symbol + " ");
-            }
-            System.out.println();
-        }
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        // Clear the console
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 }

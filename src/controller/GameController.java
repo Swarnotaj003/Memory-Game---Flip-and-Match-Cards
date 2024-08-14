@@ -1,17 +1,18 @@
-package control;
+package controller;
 
 import java.util.Scanner;
 import model.*;
 import view.*;
 
-public class GameControl 
+public class GameController 
 {
     GameModel gameModel;
     GameView gameView;
     Scanner sc;
 
-    public GameControl () {
+    public GameController () {
         this.sc = new Scanner(System.in);
+        this.gameView = new GameView(null);
         displayInstructions();
         setGame();
         playGame();
@@ -49,16 +50,17 @@ public class GameControl
             System.out.print("Enter the number of players : ");
             numOfPlayers = sc.nextInt();
         }
+        sc.nextLine();
 
         System.out.println("## Enter the player details ##");
-        Player[] players = this.gameModel.getPlayers();
-        for (int i = 0; i < players.length; i++) {
+        Player[] players = new Player[numOfPlayers];
+        for (int i = 0; i < numOfPlayers; i++) {
             System.out.print("Name of player " + (i+1) + ": ");
             players[i] = new Player(sc.nextLine());
         }
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        return new Player[numOfPlayers];
+        return players;
     }
 
     public void playGame() {
@@ -69,7 +71,7 @@ public class GameControl
 
         System.out.println("Shuffling your deck...");
         deck.shuffle();
-        deck.showDeck();
+        this.gameView.showDeck();
 
         while (!gameOver()) {
             System.out.println("TURN OF " + players[turn].getName());
@@ -104,7 +106,7 @@ public class GameControl
             }
 
             System.out.println(); 
-            deck.showDeck();
+            this.gameView.showDeck();
             System.out.println(); 
 
             if (deck.getCard(row1, col1).hasMatched(deck.getCard(row2, col2))) {

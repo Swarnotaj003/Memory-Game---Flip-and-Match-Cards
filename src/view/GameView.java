@@ -1,5 +1,6 @@
 package view;
 
+import java.util.concurrent.TimeUnit;
 import model.*;
 
 public class GameView 
@@ -15,7 +16,24 @@ public class GameView
     }
 
     public void showDeck() {
-        this.gameModel.getDeck().showDeck();
+        Deck deck = this.gameModel.getDeck();
+        for (int i = 0; i < deck.getMatrixDimension(); i++) {
+            for (int j = 0; j < deck.getMatrixDimension(); j++) {
+                char symbol = deck.isCardAvailable(i, j) ? 
+                    (deck.getCard(i, j).isFaceUp() ? deck.getCard(i, j).showCardFace() : '#')
+                    : '_';
+                System.out.print(symbol + " ");
+            }
+            System.out.println();
+        }
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+        // Clear the console
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     public void showResults() {

@@ -1,11 +1,10 @@
 package view;
 
-import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Instructions
 {
     {
-        Scanner sc = new Scanner(System.in);
         System.out.println("************************************************************************");
         System.out.printf("%45s","MEMORY MATCH GAME\n");
         System.out.println("************************************************************************");
@@ -32,10 +31,13 @@ public class Instructions
         System.out.println("------------------------------------------------------------------------");
         System.out.println();
 
-        System.out.print("Press ENTER to continue...");
-        sc.nextLine();
+        System.out.print("About to START the game...");
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        }   catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        sc.close();
     }
 }
