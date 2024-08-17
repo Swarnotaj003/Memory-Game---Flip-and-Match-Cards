@@ -1,8 +1,10 @@
 package controller;
 
 import java.util.Scanner;
-import model.*;
-import view.*;
+import model.GameModel;
+import view.GameView;
+import model.Deck;
+import model.Player;
 
 public class GameController 
 {

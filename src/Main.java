@@ -1,4 +1,4 @@
-import controller.*;
+import controller.GameController;
 
 public class Main 
 {    

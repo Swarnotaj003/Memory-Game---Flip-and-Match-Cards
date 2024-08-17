@@ -1,7 +1,9 @@
 package view;
 
 import java.util.concurrent.TimeUnit;
-import model.*;
+import model.GameModel;
+import model.Deck;
+import model.Player;
 
 public class GameView 
 {
