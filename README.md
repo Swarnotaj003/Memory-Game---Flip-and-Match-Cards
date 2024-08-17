@@ -1,6 +1,6 @@
 # Memory Match Game
 
-A simple memory match game built with `Java`, following `MVC` architecture, where you try to find matching pairs of cards among a shuffled deck of `4*n**2` cards, n increases in higher game levels.
+A simple memory match game built with `Java`, following `MVC` architecture and `State Machine` approach, where you try to find matching pairs of cards among a shuffled deck of `4*n**2` cards, n increases in higher game levels.
 
 ## Table of Contents
 
@@ -43,6 +43,7 @@ git clone https://github.com/Swarnotaj003/Memory-Match-Game.git
 
 - Built with `Java` following the `Model-View-Controller (MVC)` architecture
 - Use of `OOP` concepts for modelling the software
+- Use of `State Machine` approach to control the program flow
 - Runs on `Command Line Interface (CLI)`
 - Use of `Random` class to shuffle the deck of cards
 - Use of `sleep()` and `flush()` methods to ensure limited duration for which the selected cards will be faced up

@@ -33,10 +33,12 @@ public class Instructions
 
         System.out.print("About to START the game...");
         try {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(10);
         }   catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }

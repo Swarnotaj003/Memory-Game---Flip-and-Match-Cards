@@ -6,18 +6,34 @@ import view.*;
 
 public class GameController 
 {
-    GameModel gameModel;
-    GameView gameView;
-    Scanner sc;
+    private GameModel gameModel;
+    private GameView gameView;
+    private GameState gameState;
+    private Scanner sc;
 
     public GameController () {
         this.sc = new Scanner(System.in);
         this.gameView = new GameView(null);
-        displayInstructions();
-        setGame();
-        playGame();
-        displayResults();
-        sc.close();
+        this.gameState = GameState.INITIALIZING;
+        
+        switch (gameState) {
+            case INITIALIZING:
+                gameState = GameState.transition(gameState);
+                displayInstructions();
+            case INSTRUCTING:
+                gameState = GameState.transition(gameState);
+                setGame();
+            case GAMEPLAY_SETTINGS:
+                gameState = GameState.transition(gameState);
+                playGame();
+            case PLAYING:
+                gameState = GameState.transition(gameState);
+            case GAME_OVER:
+                gameState = GameState.transition(gameState);
+                displayResults();
+            case SHOWING_RESULTS:
+                sc.close();
+        }
     }
 
     public void displayInstructions() {
@@ -30,11 +46,11 @@ public class GameController
     }
 
     public Deck setDeck() {
-        System.out.print("Enter the game level : ");
+        System.out.print("Enter the game level (1-3): ");
         int gameLevel = sc.nextInt();
         while (gameLevel < 1 || gameLevel > 3) {
-            System.out.println("## Enter a valid game level (1-3) ##");
-            System.out.print("Enter the game level : ");
+            System.out.println("## Enter a valid game level ##");
+            System.out.print("Enter the game level (1-3): ");
             gameLevel = sc.nextInt();
         }
         System.out.print("\033[H\033[2J");
@@ -43,11 +59,11 @@ public class GameController
     }
 
     public Player[] setPlayers() {
-        System.out.print("Enter the number of players : ");
+        System.out.print("Enter the number of players (2-4): ");
         int numOfPlayers = sc.nextInt();
         while (numOfPlayers < 2 || numOfPlayers > 4) {
-            System.out.println("## Enter the permissible no. of players (2-4) ##");
-            System.out.print("Enter the number of players : ");
+            System.out.println("## Enter the permissible no. of players ##");
+            System.out.print("Enter the number of players (2-4): ");
             numOfPlayers = sc.nextInt();
         }
         sc.nextLine();
@@ -79,7 +95,7 @@ public class GameController
             
             boolean picked = false;
             while (!picked) {
-                System.out.print("Choose your first card : ");
+                System.out.print("Choose your first card (row col): ");
                 row1 = sc.nextInt();
                 col1 = sc.nextInt();
                 if (validateInput(row1, col1) && deck.isCardAvailable(row1, col1)) {
@@ -93,7 +109,7 @@ public class GameController
 
             picked = false;
             while (!picked) {
-                System.out.print("Choose your second card : ");
+                System.out.print("Choose your second card (row col): ");
                 row2 = sc.nextInt();
                 col2 = sc.nextInt();
                 if (validateInput(row2, col2) && deck.isCardAvailable(row2, col2)) {

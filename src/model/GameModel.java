@@ -6,7 +6,7 @@ public class GameModel
     private Player[] players;
 
     public GameModel (Deck deck, Player[] players) {
-        this.deck = deck;
+        this.deck = deck; 
         this.players = players;
     }
 

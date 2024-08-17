@@ -5,7 +5,7 @@ import model.*;
 
 public class GameView 
 {
-    GameModel gameModel;
+    private GameModel gameModel;
 
     public GameView (GameModel gameModel) {
         this.gameModel = gameModel;
