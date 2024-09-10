@@ -32,12 +32,14 @@ git clone https://github.com/Swarnotaj003/Memory-Match-Game.git
 ## Gameplay
 
 - Run the game by executing the `Main` class of the `MemoryMatchGame`(project) folder
-- Set the gameplay by entering your preferred `level` and `number of players`
-- Enter the addresses of two cards to flip it over
-- If you find a match, the cards will be withdrawn from the deck and you score a point
+- Set the gameplay by entering your preferred `game level`
+- A deck of shuffled cards is presented, all facing down
+- Enter the addresses of two cards to flip over
+- If you find a match, you will score a point & keep the cards
 - If you don't find a match, the cards will flipped back
-- Then the other palyers try in succession
-- The play continues until all the matches are found, the one with most matches wins
+- Matched or not don't worry, carry on remembering & flipping
+- The play continues until the last pair remains to be matched
+- Lesser the number of attempts, better the score
 
 ## Features
 

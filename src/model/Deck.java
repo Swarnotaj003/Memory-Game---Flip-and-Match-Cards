@@ -57,14 +57,15 @@ public class Deck
     public void shuffle() {
         Random random = new Random();
         int row, col;
-        for (int i = 0; i < 2*numOfSymbols; i++) {
-            for (int j = 0; j < 2*numOfSymbols; j++) {
-                row = random.nextInt(2*numOfSymbols);
-                col = random.nextInt(2*numOfSymbols);
-
-                Card tempCard = matrix[i][j];
-                matrix[i][j] = matrix[row][col];
-                matrix[row][col] = tempCard;
+        for (int k = 0; k < 10; k++) {
+            for (int i = 0; i < 2*numOfSymbols; i++) {
+                for (int j = 0; j < 2*numOfSymbols; j++) {
+                    row = random.nextInt(2*numOfSymbols);
+                    col = random.nextInt(2*numOfSymbols);
+                    Card tempCard = matrix[i][j];
+                    matrix[i][j] = matrix[row][col];
+                    matrix[row][col] = tempCard;
+                }
             }
         }
     }

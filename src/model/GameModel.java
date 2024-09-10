@@ -3,18 +3,22 @@ package model;
 public class GameModel 
 {
     private Deck deck;
-    private Player[] players;
+    private int attempts;
 
-    public GameModel (Deck deck, Player[] players) {
-        this.deck = deck; 
-        this.players = players;
+    public GameModel (Deck deck) {
+        this.deck = deck;
+        this.attempts = 0;
     }
 
     public Deck getDeck() {
         return this.deck;
     }
 
-    public Player[] getPlayers() {
-        return this.players;
+    public int getAttempts() {
+        return attempts;
+    }
+
+    public void incrementAttempts() {
+        attempts++;
     }
 }

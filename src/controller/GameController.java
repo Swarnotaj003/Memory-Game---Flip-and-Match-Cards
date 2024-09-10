@@ -4,7 +4,6 @@ import java.util.Scanner;
 import model.GameModel;
 import view.GameView;
 import model.Deck;
-import model.Player;
 
 public class GameController 
 {
@@ -16,26 +15,12 @@ public class GameController
     public GameController () {
         this.sc = new Scanner(System.in);
         this.gameView = new GameView(null);
-        this.gameState = GameState.INITIALIZING;
         
-        switch (gameState) {
-            case INITIALIZING:
-                gameState = GameState.transition(gameState);
-                displayInstructions();
-            case INSTRUCTING:
-                gameState = GameState.transition(gameState);
-                setGame();
-            case GAMEPLAY_SETTINGS:
-                gameState = GameState.transition(gameState);
-                playGame();
-            case PLAYING:
-                gameState = GameState.transition(gameState);
-            case GAME_OVER:
-                gameState = GameState.transition(gameState);
-                displayResults();
-            case SHOWING_RESULTS:
-                sc.close();
-        }
+        displayInstructions();
+        setGame();
+        playGame();
+        displayResults();
+        this.sc.close();
     }
 
     public void displayInstructions() {
@@ -43,11 +28,6 @@ public class GameController
     }
 
     public void setGame() {
-        this.gameModel = new GameModel(setDeck(), setPlayers());
-        this.gameView = new GameView(this.gameModel);
-    }
-
-    public Deck setDeck() {
         System.out.print("Enter the game level (1-3): ");
         int gameLevel = sc.nextInt();
         while (gameLevel < 1 || gameLevel > 3) {
@@ -57,45 +37,24 @@ public class GameController
         }
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        return new Deck(gameLevel+1);
-    }
 
-    public Player[] setPlayers() {
-        System.out.print("Enter the number of players (2-4): ");
-        int numOfPlayers = sc.nextInt();
-        while (numOfPlayers < 2 || numOfPlayers > 4) {
-            System.out.println("## Enter the permissible no. of players ##");
-            System.out.print("Enter the number of players (2-4): ");
-            numOfPlayers = sc.nextInt();
-        }
-        sc.nextLine();
-
-        System.out.println("## Enter the player details ##");
-        Player[] players = new Player[numOfPlayers];
-        for (int i = 0; i < numOfPlayers; i++) {
-            System.out.print("Name of player " + (i+1) + ": ");
-            players[i] = new Player(sc.nextLine());
-        }
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        return players;
+        this.gameModel = new GameModel(new Deck(gameLevel+1));
+        this.gameView = new GameView(this.gameModel);
     }
 
     public void playGame() {
-        int turn = 0;
+        this.gameState = GameState.SHUFFLING;
         int row1 = 0, col1 = 0, row2 = 0, col2 = 0;
         Deck deck = this.gameModel.getDeck();
-        Player[] players = this.gameModel.getPlayers();
 
         System.out.println("Shuffling your deck...");
         deck.shuffle();
         this.gameView.showDeck();
 
-        while (!gameOver()) {
-            System.out.println("TURN OF " + players[turn].getName());
-            System.out.println("CURRENT SCORE : " + players[turn].getScore());
-            
+        while (!gameOver()) {           
             boolean picked = false;
+            char tryAgain = 'Y';
+            
             while (!picked) {
                 System.out.print("Choose your first card (row col): ");
                 row1 = sc.nextInt();
@@ -108,7 +67,6 @@ public class GameController
                     System.out.println("## No card available at that position ##");
                 }
             }
-
             picked = false;
             while (!picked) {
                 System.out.print("Choose your second card (row col): ");
@@ -128,23 +86,33 @@ public class GameController
             System.out.println(); 
 
             if (deck.getCard(row1, col1).hasMatched(deck.getCard(row2, col2))) {
-                System.out.println("## It's a MATCH! " + players[turn].getName() + " keeps two more cards ##");
-                System.out.println();
+                System.out.println("## It's a MATCH! You keep two more cards ##");
                 deck.withdrawCard(row1, col1);
                 deck.withdrawCard(row2, col2);
-                players[turn].updateScore();
             }   
             else {
                 System.out.println("## It's NOT a MATCH! The cards are kept back ##");
-                System.out.println();
                 deck.getCard(row1, col1).flip();
                 deck.getCard(row2, col2).flip();
             }
-            turn = (turn + 1) % players.length;
+            System.out.println();
+            gameModel.incrementAttempts();
+            System.out.print("Do wish to continue (Y/N)? ");
+            sc.nextLine();
+            tryAgain = sc.nextLine().charAt(0);
+            System.out.println();
+            if (tryAgain == 'N' || tryAgain == 'n') {
+                this.gameState = GameState.GAVE_UP;
+                System.out.println("## GAME OVER! Better luck next time! ##");
+                break;
+            }
         }   
         System.out.println();
-        System.out.println("## Game Over! All cards are withdrawn ##");
-        System.out.println();
+        if (this.gameState != GameState.GAVE_UP) {
+            this.gameState = GameState.FINSIHED;
+            System.out.println("## CONGRATS! All pairs are matched ##");
+            System.out.println();
+        }
         this.sc.close();
     }
 
@@ -158,6 +126,7 @@ public class GameController
     }
 
     public void displayResults() {
-        this.gameView.showResults();
+        if (this.gameState == GameState.FINSIHED)
+            this.gameView.showResults();
     }
 }

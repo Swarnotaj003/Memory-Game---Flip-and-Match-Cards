@@ -5,7 +5,7 @@ public class Card
     private char face;
     private boolean faceUp;
 
-    public Card (char symbol) {
+    public Card(char symbol) {
         this.face = symbol;
         this.faceUp = false;
     }

@@ -3,7 +3,6 @@ package view;
 import java.util.concurrent.TimeUnit;
 import model.GameModel;
 import model.Deck;
-import model.Player;
 
 public class GameView 
 {
@@ -39,22 +38,18 @@ public class GameView
     }
 
     public void showResults() {
-        int maxScore = -1;
-        Player winner = null;
-        System.out.println("******************************************");
-        System.out.printf("%25s\n", "RESULTS");
-        System.out.println("******************************************");
+        System.out.println("*****************************************");
+        System.out.printf("%22s\n", "RESULT");
+        System.out.println("*****************************************");
 
-        System.out.printf("%20s : %5s\n", "PLAYER", "SCORE");
-        for (Player player : this.gameModel.getPlayers()) {
-            System.out.printf("%20s : %3d\n", player.getName(), player.getScore());
-            if (player.getScore() > maxScore) {
-                maxScore = player.getScore();
-                winner = player;
-            }
-        }
-        System.out.println("------------------------------------------");
-        System.out.println("## The WINNER is " + winner.getName() + " ##");
-        System.out.println("------------------------------------------");
+        int n = this.gameModel.getDeck().getMatrixDimension();
+        int numberOfPairs = n*n/2-1;
+        int numberOfAttempts = gameModel.getAttempts();
+        float accuracy = (float)numberOfPairs * 100 / numberOfAttempts;
+
+        System.out.printf("No. of pairs matched : %5d\n", numberOfPairs);
+        System.out.printf("No. of attempts      : %5d\n", numberOfAttempts);
+        System.out.printf("Your accuracy        : %2.2f%%\n", accuracy);
+        System.out.println("-----------------------------------------");
     }
 }
