@@ -35,7 +35,7 @@ git clone https://github.com/Swarnotaj003/Memory-Match-Game.git
 - Set the gameplay by entering your preferred `game level`
 - A deck of shuffled cards is presented, all facing down
 - Enter the addresses of two cards to flip over
-- If you find a match, you will score a point & keep the cards
+- If you find a match, you will keep the cards
 - If you don't find a match, the cards will flipped back
 - Matched or not don't worry, carry on remembering & flipping
 - The play continues until the last pair remains to be matched

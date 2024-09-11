@@ -2,13 +2,10 @@ package controller;
 
 public enum GameState {
     SHUFFLING,
+    SELECT_FIRST_CARD,
+    SELECT_SECOND_CARD,
     SHOWING_DECK,
-    INVALID_INPUT,
-    CARD_SELECTED,
-    PAIR_SELECTED,
-    PAIR_MATCH,
-    PAIR_MISMATCH,
-    CONTINUE,
+    CHECK_FOR_MATCH,
     GAVE_UP,
-    FINSIHED;
+    FINISHED;
 }

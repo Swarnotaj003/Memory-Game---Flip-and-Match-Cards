@@ -15,7 +15,7 @@ public class Instructions
         System.out.println("- A deck of shuffled cards is presented, all facing down");
         System.out.println("- Set the gameplay by entering your preferred `game level`");
         System.out.println("- Enter the addresses of two cards to flip over");
-        System.out.println("- If you find a match, you will score a point & keep the cards");
+        System.out.println("- If you find a match, you will keep the cards");
         System.out.println("- If you don't find a match, the cards will flipped back");
         System.out.println("- Matched or not don't worry, carry on remembering & flipping");
         System.out.println("- The play continues until the last pair remains to be matched");
