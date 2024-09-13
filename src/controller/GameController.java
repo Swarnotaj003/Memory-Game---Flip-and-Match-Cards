@@ -12,31 +12,24 @@ public class GameController
     private GameState gameState;
     private Scanner sc;
 
-    public GameController () {
+    public GameController() {
         this.sc = new Scanner(System.in);
         this.gameView = new GameView(null);
         
-        displayInstructions();
+        this.gameView.displayInstructions();
         setGame();
         playGame();
         this.sc.close();
     }
 
-    public void displayInstructions() {
-        this.gameView.showInstructions();
-    }
-
     public void setGame() {
-        System.out.print("Enter the game level (1-3): ");
+        this.gameView.promptForGameLevel(1, 3);
         int gameLevel = sc.nextInt();
         while (gameLevel < 1 || gameLevel > 3) {
-            System.out.println("## Enter a valid game level ##");
-            System.out.print("Enter the game level (1-3): ");
+            this.gameView.promptForGameLevel(1, 3);
             gameLevel = sc.nextInt();
         }
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-
+        this.gameView.flushTerminal(0);
         this.gameModel = new GameModel(new Deck(gameLevel+1));
         this.gameView = new GameView(this.gameModel);
     }
@@ -51,16 +44,15 @@ public class GameController
         while (continuePlay) {
             switch (this.gameState) {
                 case SHUFFLING:
-                    System.out.println("Shuffling your deck...");
                     deck.shuffle();
-                    this.gameView.showDeck();
+                    this.gameView.displayDeck();
                     this.gameState = GameState.SELECT_FIRST_CARD;
                     break;
 
                 case SELECT_FIRST_CARD:
                     picked = false;
                     while (!picked) {
-                        System.out.print("Choose your first card (row col): ");
+                        this.gameView.promptForCardSelection(1);
                         row1 = sc.nextInt();
                         col1 = sc.nextInt();
                         if (validateInput(row1, col1) && deck.isCardAvailable(row1, col1)) {
@@ -69,7 +61,7 @@ public class GameController
                             this.gameState = GameState.SELECT_SECOND_CARD;
                         }
                         else {
-                            System.out.println("## No card available at that position ##");
+                            this.gameView.displayInvalidCardSelection();
                         }
                     }
                     break;
@@ -77,7 +69,7 @@ public class GameController
                 case SELECT_SECOND_CARD:
                     picked = false;
                     while (!picked) {
-                        System.out.print("Choose your second card (row col): ");
+                        this.gameView.promptForCardSelection(2);
                         row2 = sc.nextInt();
                         col2 = sc.nextInt();
                         if (validateInput(row2, col2) && deck.isCardAvailable(row2, col2) && !(row1 == row2 && col1 == col2)) {
@@ -86,26 +78,26 @@ public class GameController
                             this.gameState = GameState.SHOWING_DECK;
                         }
                         else {
-                            System.out.println("## No card available at that position ##");
+                            this.gameView.displayInvalidCardSelection();
                         }
                     }
                     break;
 
                 case SHOWING_DECK:
                     System.out.println(); 
-                    this.gameView.showDeck();
+                    this.gameView.displayDeck();
                     System.out.println();
                     this.gameState = GameState.CHECK_FOR_MATCH;
                     break;
 
                 case CHECK_FOR_MATCH:
                     if (deck.getCard(row1, col1).hasMatched(deck.getCard(row2, col2))) {
-                        System.out.println("## It's a MATCH! You keep two more cards ##");
+                        this.gameView.displayMatchedMessage();
                         deck.withdrawCard(row1, col1);
                         deck.withdrawCard(row2, col2);
                     }   
                     else {
-                        System.out.println("## It's NOT a MATCH! The cards are kept back ##");
+                        this.gameView.displayNotMatchedMessage();
                         deck.getCard(row1, col1).flip();
                         deck.getCard(row2, col2).flip();
                     }
@@ -115,7 +107,7 @@ public class GameController
                         this.gameState = GameState.FINISHED;
                     }
                     else {
-                        System.out.print("Do wish to continue (Y/N)? ");
+                        this.gameView.promptToContinue();
                         sc.nextLine();
                         tryAgain = sc.nextLine().charAt(0);
                         System.out.println();
@@ -129,14 +121,13 @@ public class GameController
                     break;
 
                 case GAVE_UP:
-                    System.out.println("## GAME OVER! Better luck next time! ##");
+                    this.gameView.displayGaveUpMessage();
                     continuePlay = false;
                     break;
 
                 case FINISHED:
-                    System.out.println("## CONGRATS! All pairs are matched ##");
-                    System.out.println();
-                    displayResults();
+                    this.gameView.displayFinishedMessage();
+                    this.gameView.displayResults();
                     continuePlay = false;
                     break;
             }
@@ -150,9 +141,5 @@ public class GameController
     public boolean validateInput(int row, int col) {
         int n = this.gameModel.getDeck().getMatrixDimension();
         return (row >= 0 && row < n && col >= 0 && col < n);
-    }
-
-    public void displayResults() {
-        this.gameView.showResults();
     }
 }
