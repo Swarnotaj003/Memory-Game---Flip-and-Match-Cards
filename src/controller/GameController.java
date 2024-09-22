@@ -1,37 +1,35 @@
 package controller;
 
-import java.util.Scanner;
+import model.Deck;
 import model.GameModel;
 import view.GameView;
-import model.Deck;
+import view.GameViewCLI;
 
 public class GameController 
 {
+    private static final int LOW = 1;
+    private static final int HIGH = 3;
     private GameModel gameModel;
     private GameView gameView;
+    private UserInput userinput;
     private GameState gameState;
-    private Scanner sc;
 
     public GameController() {
-        this.sc = new Scanner(System.in);
-        this.gameView = new GameView(null);
-        
-        this.gameView.displayInstructions();
-        setGame();
-        playGame();
-        this.sc.close();
+        this.gameView = new GameViewCLI(null);
+        this.userinput = new UserInputCLI();
+        this.gameView.displayWelcome();
+        int gameLevel = this.userinput.gameLevelInput(LOW, HIGH);
+        this.gameModel = new GameModel(new Deck(gameLevel+1));
+        this.gameView = new GameViewCLI(this.gameModel);
     }
 
-    public void setGame() {
-        this.gameView.promptForGameLevel(1, 3);
-        int gameLevel = sc.nextInt();
-        while (gameLevel < 1 || gameLevel > 3) {
-            this.gameView.promptForGameLevel(1, 3);
-            gameLevel = sc.nextInt();
-        }
-        this.gameView.flushTerminal(0);
-        this.gameModel = new GameModel(new Deck(gameLevel+1));
-        this.gameView = new GameView(this.gameModel);
+    private boolean hasFinishedMatching() {
+        return this.gameModel.getDeck().getNumberOfCards() == 2;
+    }
+
+    private boolean validateInput(int row, int col) {
+        int n = this.gameModel.getDeck().getMatrixDimension();
+        return (row >= 0 && row < n && col >= 0 && col < n);
     }
 
     public void playGame() {
@@ -39,7 +37,6 @@ public class GameController
         Deck deck = this.gameModel.getDeck();
         int row1 = 0, col1 = 0, row2 = 0, col2 = 0;
         boolean continuePlay = true, picked;
-        char tryAgain = 'y';
 
         while (continuePlay) {
             switch (this.gameState) {
@@ -52,9 +49,9 @@ public class GameController
                 case SELECT_FIRST_CARD:
                     picked = false;
                     while (!picked) {
-                        this.gameView.promptForCardSelection(1);
-                        row1 = sc.nextInt();
-                        col1 = sc.nextInt();
+                        int address[] = this.userinput.cardInput(true);
+                        row1 = address[0];
+                        col1 = address[1];
                         if (validateInput(row1, col1) && deck.isCardAvailable(row1, col1)) {
                             deck.getCard(row1, col1).flip();
                             picked = true;
@@ -69,9 +66,9 @@ public class GameController
                 case SELECT_SECOND_CARD:
                     picked = false;
                     while (!picked) {
-                        this.gameView.promptForCardSelection(2);
-                        row2 = sc.nextInt();
-                        col2 = sc.nextInt();
+                        int address[] = this.userinput.cardInput(false);
+                        row2 = address[0];
+                        col2 = address[1];
                         if (validateInput(row2, col2) && deck.isCardAvailable(row2, col2) && !(row1 == row2 && col1 == col2)) {
                             deck.getCard(row2, col2).flip();
                             picked = true;
@@ -107,16 +104,10 @@ public class GameController
                         this.gameState = GameState.FINISHED;
                     }
                     else {
-                        this.gameView.promptToContinue();
-                        sc.nextLine();
-                        tryAgain = sc.nextLine().charAt(0);
-                        System.out.println();
-                        if (tryAgain == 'N' || tryAgain == 'n') {
+                        if (this.userinput.wantToQuit()) 
                             this.gameState = GameState.GAVE_UP;
-                        }
-                        else {
+                        else 
                             this.gameState = GameState.SELECT_FIRST_CARD;
-                        }
                     }
                     break;
 
@@ -132,14 +123,5 @@ public class GameController
                     break;
             }
         }        
-    }
-
-    public boolean hasFinishedMatching() {
-        return this.gameModel.getDeck().getNumberOfCards() == 2;
-    }
-
-    public boolean validateInput(int row, int col) {
-        int n = this.gameModel.getDeck().getMatrixDimension();
-        return (row >= 0 && row < n && col >= 0 && col < n);
     }
 }

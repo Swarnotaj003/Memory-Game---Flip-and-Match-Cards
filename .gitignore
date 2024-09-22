@@ -1,6 +1,0 @@
-*.class
-*.json
-.project
-.classpath
-.vscode
-bin
