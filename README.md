@@ -1,4 +1,4 @@
-# Memory Match Game
+# Memory Game : Flip & Match Cards
 
 A simple memory match game built with `Java`, following `MVC` architecture and `State Machine` approach, where you try to find matching pairs of cards among a shuffled deck of `4*n**2` cards, n increases in higher game levels.
 
@@ -24,7 +24,7 @@ To run the game, simply clone this repository and open it in your preferred Java
 
 ```java
 // Clone the repository
-git clone https://github.com/Swarnotaj003/Memory-Match-Game.git
+git clone 'https://github.com/Swarnotaj003/Memory-Game---Flip-and-Match-Cards'
 
 // Open the project folder in your Java IDE
 ```
